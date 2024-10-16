@@ -2,25 +2,42 @@
 from flask import Flask, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_httpauth import HTTPBasicAuth
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import (
+    create_access_token,
+    get_jwt_identity, jwt_required, JWTManager
+)
+
+users = {
+      "user1": {
+          "username": "user1",
+          "password": generate_password_hash("password"),
+          "role": "user"
+          },
+      "admin1": {
+          "username": "admin1",
+          "password": generate_password_hash("password"),
+          "role": "admin"
+          }
+      }
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
-app.config['JWT_SECRET_KEY'] = 'supersecretkey'
-jwt = JWTManager(app)
-
-users = {}
 
 @auth.verify_password
 def verify_password(username, password):
     user = users.get(username)
     if user and check_password_hash(user['password'], password):
-        return user
+        return username
+    return None
+
+@app.route("/")
+def home():
+    return "Welcome to the Flask API!"
 
 @app.route('/basic-protected', methods=['GET'])
 @auth.login_required
 def basic_protected():
-    return jsonify({b"Basic Auth: Access Granted"})
+    return "Basic Auth: Access Granted"
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -38,16 +55,19 @@ def login():
 @app.route('/jwt-protected', methods=['GET'])
 @jwt_required()
 def jwt_protected():
-    current_user = get_jwt_identity()
-    return jsonify({b"JWT Auth: Access Granted"})
+    return "JWT Auth: Access Granted"
 
 @app.route('/admin-only', methods=['GET'])
 @jwt_required()
 def admin_only():
     current_user = get_jwt_identity()
-    if current_user['role'] != 'admin':
+
+    if current_user not in users:
+        return jsonify({"error": "User not found"}), 404
+    
+    if users[current_user]['role'] != 'admin':
         return jsonify({"error": "Admin access required"}), 403
-    return jsonify({b"Admin Access: Granted"})
+    return "Admin Access: Granted"
 
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
