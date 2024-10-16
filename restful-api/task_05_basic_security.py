@@ -44,17 +44,19 @@ jwt=JWTManager(app)
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    
+    if not username or not password:
+        return jsonify({"message": "Missing username or password"}), 400
     
     user = users.get(username)
-    if not user or not check_password_hash(user['password'], password):
-        return jsonify({"error": "Invalid credentials"}), 401
+    if user and check_password_hash(user['password'], password):
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"message": "Bad username or password"}), 401
     
-    access_token = create_access_token(identity={"username": username, "role": user["role"]})
-    return jsonify(access_token=access_token)
-
 @app.route('/jwt-protected', methods=['GET'])
 @jwt_required()
 def jwt_protected():
