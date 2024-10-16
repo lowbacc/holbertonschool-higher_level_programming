@@ -39,6 +39,9 @@ def home():
 def basic_protected():
     return "Basic Auth: Access Granted"
 
+app.config["JWT_SECRET_KEY"] = "my_secret_key"
+jwt=JWTManager(app)
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -90,4 +93,4 @@ def handle_needs_fresh_token_error(err):
     return jsonify({"error": "Fresh token required"}), 401
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
