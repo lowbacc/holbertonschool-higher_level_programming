@@ -1,2 +1,2 @@
 '''list databases'''
-SHOW DATTABASES;
+SHOW DATABASES;
