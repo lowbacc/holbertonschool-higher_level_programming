@@ -1,5 +1,13 @@
--- Show the title of each TV show and the genre that it belongs to, ordered by title and genre name.
-SELECT tv_shows.title, tv_genres.name
-FROM tv_shows
-LEFT JOIN tv_genres ON tv_shows.genre_id = tv_genres.id
-ORDER BY tv_shows.title ASC, tv_genres.name ASC;
+-- Show all shows and their genres, ordered by show title and genre name.
+SELECT 
+    ts.title AS title, 
+    tg.name AS name
+FROM 
+    tv_shows AS ts
+LEFT JOIN 
+    tv_show_genres AS tsg ON ts.id = tsg.show_id
+LEFT JOIN 
+    tv_genres AS tg ON tg.id = tsg.genre_id
+ORDER BY 
+    ts.title ASC, 
+    tg.name ASC;
