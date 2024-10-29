@@ -1,0 +1,6 @@
+-- Find the TV shows that do not have a genre assigned to them. Display the title of the TV show and the genre_id. Order the results by the title of the TV show in ascending order, and then by the genre_id in ascending order.
+SELECT tv_shows.title, tv_show_genres.genre_id
+FROM tv_shows
+LEFT JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
+WHERE tv_show_genres.genre_id IS NULL
+ORDER BY tv_shows.title ASC, tv_show_genres.genre_id ASC;
