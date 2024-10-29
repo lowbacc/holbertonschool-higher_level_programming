@@ -1,14 +1,14 @@
--- Count the number of shows for each genre.
+-- Count the number of shows for each genre, and display the genres in descending order of the number of shows.
 SELECT 
-    g.name AS genre, 
-    COUNT(sg.show_id) AS number_of_shows
+    tg.name AS genre, 
+    COUNT(tsg.show_id) AS number_of_shows
 FROM 
-    genres AS g
+    tv_genres AS tg
 JOIN 
-    shows_genres AS sg ON g.id = sg.genre_id
+    tv_show_genres AS tsg ON tg.id = tsg.genre_id
 GROUP BY 
-    g.name
+    tg.name
 HAVING 
-    COUNT(sg.show_id) > 0
+    COUNT(tsg.show_id) > 0
 ORDER BY 
     number_of_shows DESC;
