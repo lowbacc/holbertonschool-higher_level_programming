@@ -1,6 +1,13 @@
--- Use the tv_shows database
-SELECT genres.name
-FROM genres
-JOIN tv_show_genres ON genres.id = tv_show_genres.genre_id
-WHERE tv_show_genres.show_id = (SELECT id FROM tv_shows WHERE title = 'Dexter')
-ORDER BY genres.name ASC;
+-- My Genres
+SELECT 
+    tg.name AS name
+FROM 
+    tv_genres AS tg
+JOIN 
+    tv_show_genres AS tsg ON tg.id = tsg.genre_id
+JOIN 
+    tv_shows AS ts ON ts.id = tsg.show_id
+WHERE 
+    ts.title = 'Dexter'
+ORDER BY 
+    tg.name ASC;
