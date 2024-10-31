@@ -26,11 +26,10 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Définir la requête SQL
-    query = ("SELECT * FROM states WHERE name LIKE '{}' ORDER \
-        BY id ASC;".format(sys.argv[4]))
+    query = ("SELECT * FROM states WHERE name = %s ORDER BY id ASC")
 
     # Exécuter une requête SQL
-    cursor.execute(query)
+    cursor.execute(query, (sys.argv[4],))
 
     # Récupérer les résultats de la requête
     rows = cursor.fetchall()
