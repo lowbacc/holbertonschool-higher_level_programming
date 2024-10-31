@@ -1,19 +1,25 @@
 #!/usr/bin/python3
+
+'''
+lists all states with a name starting with N (upper N) from the database hbtn_0e_0_usa.
+This script connects to a MySQL database using credentials provided as command-line arguments
+and retrieves all states from the 'states' table where the name starts with 'N', ordered by their ID.
+
+Usage:
+    ./1-filter_states.py <mysql_username> <mysql_password> <database_name>
+'''
+
 import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    # Récupérer les arguments de la ligne de commande
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
     # Connexion à la base de données
     db = MySQLdb.connect(
         host="localhost",
-        user=username,
-        passwd=password,
-        db=database
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3],
     )
 
     # Créer un curseur pour exécuter des requêtes SQL
