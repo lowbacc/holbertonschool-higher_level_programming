@@ -28,6 +28,7 @@ if __name__ == "__main__":
     query = ("SELECT * FROM states WHERE name"
             "LIKE '{}' ORDER"
             "BY id ASC;".format(sys.argv[4]))
+
     # Exécuter une requête SQL
     cursor.execute(query)
 
