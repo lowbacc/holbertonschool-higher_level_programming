@@ -5,7 +5,8 @@ Script that takes in an argument and displays all values in the states table of
 hbtn_0e_0_usa where name matches the argument. But this time, write one that is
 safe from MySQL injections!
 
-usage: ./3-my_safe_filter_states.py <mysql username> <mysql password> <database name> <state name searched>
+usage: ./3-my_safe_filter_states.py
+<mysql username> <mysql password> <database name> <state name searched>
 '''
 
 import MySQLdb
@@ -25,9 +26,8 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Définir la requête SQL
-    query = ("SELECT * FROM states WHERE name"
-            "LIKE '{}' ORDER"
-            "BY id ASC;".format(sys.argv[4]))
+    query = ("SELECT * FROM states WHERE name LIKE '{}' ORDER \
+        BY id ASC;".format(sys.argv[4]))
 
     # Exécuter une requête SQL
     cursor.execute(query)
