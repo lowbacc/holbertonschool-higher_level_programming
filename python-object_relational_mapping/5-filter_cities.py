@@ -13,33 +13,33 @@ if __name__ == "__main__":
         print("Usage: ./5-filter_cities.py <mysql username> <mysql password> <database name> <state name>")
         sys.exit(1)
 
-mysql_username = sys.argv[1]
-mysql_password = sys.argv[2]
-database_name = sys.argv[3]
-state_name = sys.argv[4]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
+    state_name = sys.argv[4]
 
-# Connect to the MySQL server
-db = MySQLdb.connect(host="localhost", port=3306, user=mysql_username, passwd=mysql_password, db=database_name)
+    # Connect to the MySQL server
+    db = MySQLdb.connect(host="localhost", port=3306, user=mysql_username, passwd=mysql_password, db=database_name)
 
-# Create a cursor object
-cursor = db.cursor()
+    # Create a cursor object
+    cursor = db.cursor()
 
-# Execute the query
-query = """
-SELECT cities.name 
-FROM cities 
-JOIN states ON cities.state_id = states.id 
-WHERE states.name = %s 
-ORDER BY cities.id ASC
-"""
-cursor.execute(query, (state_name,))
+    # Execute the query
+    query = """
+        SELECT cities.name 
+        FROM cities 
+        JOIN states ON cities.state_id = states.id 
+        WHERE states.name = %s 
+        ORDER BY cities.id ASC
+        """
+    cursor.execute(query, (state_name,))
 
-# Fetch all the results
-cities = cursor.fetchall()
+    # Fetch all the results
+    cities = cursor.fetchall()
 
-# Print the results
-print(", ".join([city[0] for city in cities]))
+    # Print the results
+    print(", ".join([city[0] for city in cities]))
 
-# Close the cursor and the connection
-cursor.close()
-db.close()
+    # Close the cursor and the connection
+    cursor.close()
+    db.close()
