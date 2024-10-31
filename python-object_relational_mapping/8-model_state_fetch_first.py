@@ -13,12 +13,13 @@ from model_state import Base, State
 
 if __name__ == "__main__":
     # Get MySQL credentials and database name from command line arguments
-    username = argv[1]
-    password = argv[2]
-    dbname = argv[3]
+    mysql_username = argv[1]
+    mysql_password = argv[2]
+    database_name = argv[3]
 
     # Create an engine to the MySQL database
-    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{dbname}')
+    engine = create_engine(f'mysql+mysqldb://{mysql_username}:\
+                           {mysql_password}@localhost:3306/{database_name}')
 
     # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
