@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 
 '''
-Display all states with a name starting with N (upper N) from the database hbtn_0e_0_usa.
-This script connects to a MySQL database using credentials provided as command-line arguments
+Display all states with a name starting with N (upper N)
+from the database hbtn_0e_0_usa.
+This script connects to a MySQL database
+using credentials provided as command-line arguments
 
-usage: ./2-my_filter_states.py <mysql_username> <mysql_password> <database_name>
+usage: ./2-my_filter_states.py
+<mysql_username> <mysql_password> <database_name>
 '''
 
 import MySQLdb
