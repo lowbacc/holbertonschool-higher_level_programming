@@ -16,7 +16,7 @@ if __name__ == "__main__":
             mysql password: password to connect the mySQL database
             database name: name of the database to connect
         """
-    
+
     # Connect to MySQL database
     db = MySQLdb.connect(
         host="localhost",
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # Print each row
     for row in rows:
         print(row)
-    
+
     # Close cursor and connection
     cur.close()
     db.close()
