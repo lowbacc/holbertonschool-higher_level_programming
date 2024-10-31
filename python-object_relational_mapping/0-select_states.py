@@ -34,6 +34,10 @@ if __name__ == "__main__":
 
     # Fetch all rows and print them in the desired format
     rows = cur.fetchall()
+
+    # Print each row
+    for row in rows:
+        print(row)
     
     # Close cursor and connection
     cur.close()
