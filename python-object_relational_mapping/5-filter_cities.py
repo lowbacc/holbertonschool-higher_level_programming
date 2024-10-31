@@ -10,8 +10,8 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: ./5-filter_cities.py <mysql username>"
-              "<mysql password> <database name> <state name>")
+        print("Usage: ./5-filter_cities.py \
+              <mysql username> <mysql password> <database name> <state name>")
         sys.exit(1)
 
     mysql_username = sys.argv[1]
