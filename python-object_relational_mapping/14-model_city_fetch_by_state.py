@@ -30,7 +30,12 @@ if __name__ == "__main__":
     session = Session()
 
     # Query all City objects and join with State to get the state name
-    cities = session.query(City, State).filter(City.state_id == State.id).order_by(City.id).all()
+    cities = (
+        session.query(City, State)
+        .filter(City.state_id == State.id)
+        .order_by(City.id)
+        .all()
+        )
 
     # Print the results
     for city, state in cities:
