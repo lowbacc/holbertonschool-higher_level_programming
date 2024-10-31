@@ -6,18 +6,24 @@ import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    '''main method'''
-    mysql_username = sys.argv[1]
-    mysql_password = sys.argv[2]
-    db_name = sys.argv[3]
+    """ Lists all states from the database hbtn_0e_0_usa
 
+        Usage: ./0-select_states.py <mysql username>
+        <mysql password> <database name>
+
+        Arguments:
+            mysql username: username to connect the mySQL database
+            mysql password: password to connect the mySQL database
+            database name: name of the database to connect
+        """
+    
     # Connect to MySQL database
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=mysql_username,
-        passwd=mysql_password,
-        db=db_name
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
     )
 
     # Create a cursor to execute SQL queries
